@@ -46,7 +46,7 @@
             doCheck = false;
           };
 
-          antlr-denter = pyPkgs.buildPythonPackage rec {
+          antlr-denter = pyPkgs.buildPythonPackage {
             pname = "antlr-denter";
             version = "1.3.1";
             # The sdist's setup.py expects a README.md outside the source root.
