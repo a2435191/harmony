@@ -1,0 +1,17 @@
+#!/bin/zsh
+
+if [[ $# != 1 ]]; then
+    echo "Usage: ./asan <name_of_model>"
+    exit 1
+fi
+
+# Run the model checker standalone with the address sanitizer
+./harmony -p $1.hny -o $1.hvm &&
+# -DDEBUGGING
+clang -fsanitize=address -O1 -fno-optimize-sibling-calls -fno-omit-frame-pointer -g \
+      -o charm harmony_model_checker/charm/*.c &&
+./charm -w1 $1.hvm
+
+retcode=$? # Status of the last executed command
+echo $(printf "Exiting (status %d)." retcode)
+exit retcode
