@@ -78,3 +78,5 @@ clean:
 	(cd harmony_model_checker/modules; rm -f *.htm *.hvm *.hco *.png *.hfa *.tla *.gv *.html)
 	rm -rf compiler_integration_results.md compiler_integration_results/
 	rm -rf build/ dist/ harmony_model_checker.egg-info/
+	(cd harmony_model_checker; rm -rf __init__.py charm.cpython*.so __pycache__)
+	rm -rf *.hvm charm.out
