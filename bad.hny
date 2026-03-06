@@ -1,1 +1,7 @@
 print "abcd" 3 "abcd" 1
+# Print (
+#   Load (
+#     AddArg (
+#       AddArg (Closure "abcd" 3) "abcd")
+#         1)
+#   )
