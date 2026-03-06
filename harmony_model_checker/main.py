@@ -109,7 +109,7 @@ def handle_hny(ns, output_files, parse_code_only, filenames):
 
     if parse_code_only:
         with open(output_files["hvm"], "w", encoding='utf-8') as f:
-            f.write(json.dumps({"status": "ok"}))
+            legacy_harmony.dumpCode("json", code, scope, f)
         exit()
 
     if output_files["tla"] is not None:
@@ -239,6 +239,7 @@ def handle_config(ns: argparse.Namespace):
 
 def main():
     ns = args.parse_args()
+    print(ns)
 
     if ns.version:
         return handle_version(ns)

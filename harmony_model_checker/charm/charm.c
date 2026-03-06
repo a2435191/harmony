@@ -2,6 +2,8 @@
 // loop of the model checker, the subsequent analysis of the Kripke
 // structure, and the code to regenerate a counter-example.
 
+#include "debug.h"
+
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
 #endif

@@ -35,6 +35,8 @@
 //  operation Y. 'args' is an array containing the arguments that
 //  were on the stack, and n is the numbers of arguments.
 
+#include "debug.h"
+
 #ifndef _WIN32
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
@@ -2493,6 +2495,7 @@ void op_Nary(const void *env, struct state *state, struct step *step){
             strbuf_printf(&step->explain, "); ");
         }
     }
+    debug("Nary: Executing %d-ary %s\n", en->arity, en->fi->name);
     hvalue_t result = (*en->fi->f)(state, step, args, en->arity);
     if (!step->ctx->failed) {
         if (step->keep_callstack) {

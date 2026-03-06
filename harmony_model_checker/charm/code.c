@@ -1,3 +1,5 @@
+#include "debug.h"
+
 #include "head.h"
 
 #include <stdlib.h>
