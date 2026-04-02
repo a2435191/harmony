@@ -54,7 +54,7 @@
 #include "dfa2.h"
 
 // Heuristic check for possible infinite model: diameter of Kripke structure
-#define MAX_DIAMETER    500
+#define MAX_DIAMETER    5000
 
 // The model checker leverages partial order reduction to reduce the
 // number of states and interleavings considered.  In particular, it

@@ -1,6 +1,6 @@
 from locks import Lock, acquire, release
 
-const NTHREADS = 3
+const NTHREADS = 2
 
 the_lock = Lock()
 
@@ -8,7 +8,7 @@ def thread(self):
     while choose { False, True }:
         acquire(?the_lock)
         print("enter", self)
-        # Critical section i is here
+        # Critical section: self is here
         print("exit", self)
         release(?the_lock)
 
