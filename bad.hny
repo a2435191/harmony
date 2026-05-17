@@ -1,4 +1,4 @@
-print "abcd" 3 "abcd" 1
+print ("abcd" "efg" 1)
 # Print (
 #   Load (
 #     AddArg (

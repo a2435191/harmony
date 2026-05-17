@@ -1,35 +1,75 @@
 * Phase 2: run the model checker (nworkers = 1)
 Nary: Executing 2-ary Closure
 Nary: Executing 2-ary AddArg
-Nary: Executing 2-ary AddArg
 AddressSanitizer:DEADLYSIGNAL
 =================================================================
-==74204==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000018 (pc 0x0001026c62b4 bp 0x00016d7b80e0 sp 0x00016d7b8080 T0)
-==74204==The signal is caused by a READ memory access.
-==74204==Hint: address points to the zero page.
-    #0 0x0001026c62b4 in dict_retrieve hashdict.h:60
-    #1 0x00010268d9c4 in value_get value.h:174
-    #2 0x0001026a0898 in do_Load ops.c:2221
-    #3 0x0001026a20a0 in op_Load ops.c:2387
-    #4 0x00010265c66c in onestep charm.c:972
-    #5 0x00010265aa64 in trystep charm.c:1349
-    #6 0x0001026591cc in do_work1 charm.c:2575
-    #7 0x0001026577c8 in do_work_b charm.c:2733
-    #8 0x00010264cc40 in worker charm.c:3230
-    #9 0x000102644f74 in exec_model_checker charm.c:5257
-    #10 0x0001026546e0 in main charm.c:5827
+==80614==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000018 (pc 0x000102c6e54c bp 0x00016d2100a0 sp 0x00016d210040 T0)
+==80614==The signal is caused by a READ memory access.
+==80614==Hint: address points to the zero page.
+    #0 0x000102c6e54c in dict_retrieve hashdict.h:62
+    #1 0x000102c35b08 in value_get value.h:177
+    #2 0x000102c48b00 in do_Load ops.c:2230
+    #3 0x000102c4a308 in op_Load ops.c:2396
+    #4 0x000102c046b8 in onestep charm.c:972
+    #5 0x000102c02ab0 in trystep charm.c:1349
+    #6 0x000102c01218 in do_work1 charm.c:2575
+    #7 0x000102bff814 in do_work_b charm.c:2733
+    #8 0x000102bf4c40 in worker charm.c:3230
+    #9 0x000102becf74 in exec_model_checker charm.c:5257
+    #10 0x000102bfc72c in main charm.c:5827
     #11 0x00019e3b5d50  (<unknown module>)
 
-==74204==Register values:
- x[0] = 0x0000000000000010   x[1] = 0x000000016d7b8184   x[2] = 0x0000000000000000   x[3] = 0x000000702db17038  
- x[4] = 0x0000000000000000   x[5] = 0x0000000000000003   x[6] = 0x0000000000000064   x[7] = 0x0000000000000001  
- x[8] = 0x0000007000020000   x[9] = 0x0000000000000010  x[10] = 0x0000000000000002  x[11] = 0x000000016d7b8140  
-x[12] = 0x00000000ffffffcb  x[13] = 0x000000016d7b7e40  x[14] = 0x000000702db17034  x[15] = 0x0000000000000010  
-x[16] = 0x000000019e7890b0  x[17] = 0x000000020bfb8d78  x[18] = 0x0000000000000000  x[19] = 0x000000016d7b8200  
+==80614==Register values:
+ x[0] = 0x000000000000000d   x[1] = 0x0000000102c8e8aa   x[2] = 0x00000000000120a8   x[3] = 0x0000000000000000  
+ x[4] = 0x000000019e687a08   x[5] = 0x000000016d210040   x[6] = 0x000000016d20ffc0   x[7] = 0x0000000000000001  
+ x[8] = 0x0000007000020000   x[9] = 0x0000000000000010  x[10] = 0x0000000000000002  x[11] = 0x0000010000000000  
+x[12] = 0x00000000fffffffd  x[13] = 0x0000000000000000  x[14] = 0x0000000000000000  x[15] = 0x0000000000000000  
+x[16] = 0x000000019e73d608  x[17] = 0x000000020bfb8d78  x[18] = 0x0000000000000000  x[19] = 0x000000016d2101c0  
 x[20] = 0x000000020a9f9248  x[21] = 0x000000020a74ce00  x[22] = 0xfffffffffffffff0  x[23] = 0x000000020a9fc960  
-x[24] = 0x0000000000000001  x[25] = 0x000000016d7be650  x[26] = 0x000000020a9fc970  x[27] = 0x0000000000000000  
-x[28] = 0x0000000000000000     fp = 0x000000016d7b80e0     lr = 0x000000010268d9c8     sp = 0x000000016d7b8080  
+x[24] = 0x0000000000000001  x[25] = 0x000000016d216650  x[26] = 0x000000020a9fc970  x[27] = 0x0000000000000000  
+x[28] = 0x0000000000000000     fp = 0x000000016d2100a0     lr = 0x0000000102c6e4f0     sp = 0x000000016d210040  
 AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV hashdict.h:60 in dict_retrieve
-==74204==ABORTING
+SUMMARY: AddressSanitizer: SEGV hashdict.h:62 in dict_retrieve
+==80614==ABORTING
+VALUE_MASK      = 0xffff00000000000f
+v               = 0x1199f8a2a
+v & ~VALUE_MASK = 0x1199f8a20
+psize = 0x16d211d90
+k = p = 0x1199f8a20
+VALUE_MASK      = 0xffff00000000000f
+v               = 0x1199f8a59
+v & ~VALUE_MASK = 0x1199f8a50
+psize = 0x16d2105e0
+k = p = 0x1199f8a50
+VALUE_MASK      = 0xffff00000000000f
+v               = 0x1199f8a79
+v & ~VALUE_MASK = 0x1199f8a70
+psize = 0x16d2107c0
+k = p = 0x1199f8a70
+VALUE_MASK      = 0xffff00000000000f
+v               = 0x1199f89c3
+v & ~VALUE_MASK = 0x1199f89c0
+psize = 0x16d210124
+k = p = 0x1199f89c0
+indices[i] = 0x1199f89e3
+indices[i] = 0x1199f89e3
+VALUE_MASK      = 0xffff00000000000f
+v               = 0x1199f89e0
+v & ~VALUE_MASK = 0x1199f89e0
+psize = 0x16d20fee0
+k = p = 0x1199f89e0
+value_string(indices[i]) = "efg"
+VALUE_MASK      = 0xffff00000000000f
+v               = 0x1199f89e3
+v & ~VALUE_MASK = 0x1199f89e0
+psize = 0x16d210134
+k = p = 0x1199f89e0
+indices[i] = 0x12
+indices[i] = 0x12
+value_string(indices[i]) = 1
+VALUE_MASK      = 0xffff00000000000f
+v               = 0x12
+v & ~VALUE_MASK = 0x10
+psize = 0x16d210144
+k = p = 0x10
 Exiting (status 134).
