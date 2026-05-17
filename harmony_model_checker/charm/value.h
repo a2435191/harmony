@@ -164,7 +164,10 @@ void strbuf_value_json(strbuf *sb, hvalue_t v);
 // in bytes in *psize.  The value should be stored in the global.values
 // hash table.
 static inline void *value_get(hvalue_t v, unsigned int *psize){
-    v &= ~VALUE_MASK;
+    printf("VALUE_MASK      = 0x%llx\n", VALUE_MASK);
+    printf("v               = 0x%llx\n", v); 
+    printf("v & ~VALUE_MASK = 0x%llx\n", v & ~VALUE_MASK);
+    v &= ~VALUE_MASK; // get everything except the low 4 bits and the high 16 bits
     if (v == 0) {
         if (psize != NULL) {
             *psize = 0;

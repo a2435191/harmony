@@ -2218,7 +2218,14 @@ void do_Load(struct state *state, struct step *step,
 #endif
                     return;
                 }
-                vip->vals = value_get(indices[i], &vip->size);
+                // TODO CRASH: somehow indices[i] ends up in the zero page after masking
+                // Use bad.hny
+                // indices[i] = 0x12, which according to `value.c` is the integer 1 (2 is the type integer, the other 60 bits are the value).
+                // Looking at `value_get`, `dict_retrieve`, and the values printed here, I think the problem is that we are passing an
+                // hvalue_t representing a simple value, not an address.
+                printf("indices[i] = 0x%llx\n", indices[i]);
+                printf("value_string(indices[i]) = %s\n", value_string(indices[i]));
+                vip->vals = value_get(indices[i], &vip->size); 
                 total += vip->size;
             }
 #ifdef HEAP_ALLOC

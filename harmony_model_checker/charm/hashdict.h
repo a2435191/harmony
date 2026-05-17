@@ -57,6 +57,8 @@ struct dict {
 static inline void *dict_retrieve(const void *p, unsigned int *psize){
     const struct dict_assoc *k = p;
     if (psize != NULL) {
+        printf("psize = %p\n", psize);
+        printf("k = p = %p\n", k);
         *psize = k->len;
     }
     return (char *) &k[1];
