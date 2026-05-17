@@ -2494,7 +2494,6 @@ void op_Nary(const void *env, struct state *state, struct step *step){
             strbuf_printf(&step->explain, "); ");
         }
     }
-    debug("Nary: Executing %d-ary %s\n", en->arity, en->fi->name);
     hvalue_t result = (*en->fi->f)(state, step, args, en->arity);
     if (!step->ctx->failed) {
         if (step->keep_callstack) {
