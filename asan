@@ -5,9 +5,9 @@ if [[ $# != 1 ]]; then
     exit 1
 fi
 
+# TODO: redirect output
 # Run the model checker standalone with the address sanitizer
 ./harmony -p $1.hny -o $1.hvm &&
-# -DDEBUGGING
 clang -fsanitize=address -O0 -fno-optimize-sibling-calls -fno-omit-frame-pointer -g \
       -o charm harmony_model_checker/charm/*.c &&
 ./charm -w1 $1.hvm
