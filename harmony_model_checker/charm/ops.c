@@ -2218,7 +2218,8 @@ void do_Load(struct state *state, struct step *step,
                 printf("indices[i] = 0x%llx\n", indices[i]);
                 printf("value_string(indices[i]) = %s\n", value_string(indices[i]));
 
-                if (VALUE_TYPE(indices[k]) != VALUE_ATOM) { // TODO CRASH (see below): should this be k?? Not i????
+                if (VALUE_TYPE(indices[i]) != VALUE_ATOM) { // TODO CRASH (see below): shouldn't this be indices[i]??
+                    // TODO: why doesn't this reporting the failure cause the program to fail gracefully? It just continues
                     char *p = value_string(av);
                     value_ctx_failure(step->ctx, step->allocator, "Load %s: bad string index", p);
                     free(p);
@@ -2393,6 +2394,10 @@ void op_Load(const void *env, struct state *state, struct step *step){
                 do_Load(state, step, av, step->ctx->vars, indices + 1, size - 1);
             }
             else if (VALUE_TYPE(indices[0]) != VALUE_PC) {
+                // TODO CRASH
+                // See the comments in do_Load. The crash happens there, but even
+                // when I do what I think will fix it, the context's new programming error (more graceful than a segfault)
+                // 
                 do_Load(state, step, av, indices[0], indices + 1, size - 1);
             }
             else {
