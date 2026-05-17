@@ -1,0 +1,79 @@
+# N.B. for whatever reason I don't get a MacOS crash log for this one, unlike the other bug.
+* Phase 2: run the model checker (nworkers = 1)
+=================================================================
+==99703==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x00016b380880 at pc 0x000104adbdd8 bp 0x00016b3807d0 sp 0x00016b3807c8
+WRITE of size 8 at 0x00016b380880 thread T0
+    #0 0x000104adbdd4 in op_Nary ops.c:2499
+    #1 0x000104a946b8 in onestep charm.c:972
+    #2 0x000104a92ab0 in trystep charm.c:1349
+    #3 0x000104a91218 in do_work1 charm.c:2575
+    #4 0x000104a8f814 in do_work_b charm.c:2733
+    #5 0x000104a84c40 in worker charm.c:3230
+    #6 0x000104a7cf74 in exec_model_checker charm.c:5257
+    #7 0x000104a8c72c in main charm.c:5827
+    #8 0x00019e3b5d50  (<unknown module>)
+
+Address 0x00016b380880 is located in stack of thread T0 at offset 160 in frame
+    #0 0x000104adb934 in op_Nary ops.c:2482
+
+  This frame has 1 object(s):
+    [32, 160) 'args' (line 2484) <== Memory access at offset 160 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow ops.c:2499 in op_Nary
+Shadow bytes around the buggy address:
+  0x00016b380600: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x00016b380680: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x00016b380700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x00016b380780: 00 00 00 00 00 00 00 00 00 00 00 00 f1 f1 f1 f1
+  0x00016b380800: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x00016b380880:[f3]f3 f3 f3 00 00 00 00 00 00 00 00 00 00 00 00
+  0x00016b380900: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x00016b380980: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x00016b380a00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x00016b380a80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x00016b380b00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==99703==ABORTING
+VALUE_MASK      = 0xffff00000000000f
+v               = 0x11b9d4a2a
+v & ~VALUE_MASK = 0x11b9d4a20
+psize = 0x16b381d90
+k = p = 0x11b9d4a20
+en->arity = 17
+i = 0
+i = 1
+i = 2
+i = 3
+i = 4
+i = 5
+i = 6
+i = 7
+i = 8
+i = 9
+i = 10
+i = 11
+i = 12
+i = 13
+i = 14
+i = 15
+i = 16
+Exiting (status 134).
