@@ -2477,6 +2477,7 @@ void op_Nary(const void *env, struct state *state, struct step *step){
             }
         }
     }
+    assert(en->arity <= MAX_ARITY); 
     for (unsigned int i = 0; i < en->arity; i++) {
         args[i] = ctx_pop(step->ctx);
         if (step->keep_callstack) {
@@ -2493,6 +2494,7 @@ void op_Nary(const void *env, struct state *state, struct step *step){
             strbuf_printf(&step->explain, "); ");
         }
     }
+    debug("Nary: Executing %d-ary %s\n", en->arity, en->fi->name);
     hvalue_t result = (*en->fi->f)(state, step, args, en->arity);
     if (!step->ctx->failed) {
         if (step->keep_callstack) {
@@ -3422,6 +3424,10 @@ void *init_Nary(struct dict *map, struct allocator *allocator){
     copy[arity->u.atom.len] = 0;
     env->arity = atoi(copy);
     free(copy);
+    if (env->arity > MAX_ARITY) {
+        fprintf(stderr, "Nary: arity %u is too large (> %u)\n", env->arity, MAX_ARITY);
+        exit(1);
+    }
 
     struct json_value *op = dict_lookup(map, "value", 5);
     assert(op->type == JV_ATOM);
