@@ -2265,7 +2265,7 @@ void do_Load(struct state *state, struct step *step,
             unsigned total = vip->size;
             vip++;
             for (unsigned int i = k; i < size; i++, vip++) {
-                if (VALUE_TYPE(indices[k]) != VALUE_LIST) {
+                if (VALUE_TYPE(indices[i]) != VALUE_LIST) {
                     char *p = value_string(av);
                     value_ctx_failure(step->ctx, step->allocator, "Load %s: bad list index", p);
                     free(p);
@@ -2493,6 +2493,7 @@ void op_Nary(const void *env, struct state *state, struct step *step){
             }
         }
     }
+    assert(en->arity <= MAX_ARITY); 
     for (unsigned int i = 0; i < en->arity; i++) {
         args[i] = ctx_pop(step->ctx);
         if (step->keep_callstack) {
@@ -3439,6 +3440,10 @@ void *init_Nary(struct dict *map, struct allocator *allocator){
     copy[arity->u.atom.len] = 0;
     env->arity = atoi(copy);
     free(copy);
+    if (env->arity > MAX_ARITY) {
+        fprintf(stderr, "Nary: arity %u is too large (> %u)\n", env->arity, MAX_ARITY);
+        exit(1);
+    }
 
     struct json_value *op = dict_lookup(map, "value", 5);
     assert(op->type == JV_ATOM);
